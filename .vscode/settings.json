@@ -1,0 +1,22 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "esp_log.h": "c",
+        "esp_attr.h": "c",
+        "esp_flash.h": "c",
+        "freertos.h": "c",
+        "task.h": "c",
+        "input_iot.h": "c",
+        "esp_wifi.h": "c",
+        "nvs_flash.h": "c",
+        "esp_eth.h": "c",
+        "esp_tls_crypto.h": "c",
+        "esp_http_server.h": "c",
+        "esp_smartconfig.h": "c",
+        "pulse_cnt.h": "c",
+        "pcnt.h": "c",
+        "pcnt_types_legacy.h": "c",
+        "sensor.h": "c"
+    },
+    "cmake.sourceDirectory": "C:/Users/kien/Downloads/esp32/blink"
+}
