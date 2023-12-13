@@ -31,8 +31,8 @@
 */
 
 
-#define EXAMPLE_ESP_WIFI_SSID      "VNPT-NAM"
-#define EXAMPLE_ESP_WIFI_PASS      "123456789"
+#define EXAMPLE_ESP_WIFI_SSID      "iPhone"
+#define EXAMPLE_ESP_WIFI_PASS      "1234567899"
 #define EXAMPLE_ESP_MAXIMUM_RETRY  5
 static struct dht11_reading dht11_last_data;
 

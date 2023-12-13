@@ -31,7 +31,7 @@
 
 #include "app_config.h"
 #include "http_server_app.h"
-
+#include "app_mqtt.h"
 #include "sensor.h"
 
 static const char *TAG_mqtt = "sonoff";
@@ -48,6 +48,7 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_LOGI(TAG_mqtt, "done");
     app_config();  // hoàn thành việc connect wifi
+//    mqtt_app_start();
 
     pcnt_init();
 

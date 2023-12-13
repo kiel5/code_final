@@ -222,7 +222,7 @@ static esp_err_t wifi_post_handler(httpd_req_t *req)
         remaining -= ret;
         http_post_wifi_info_callback(buf, req->content_len);
         /* Log data received */
-        ESP_LOGI(TAG, "=========== RECEIVED DATA ==========");
+        ESP_LOGI(TAG, "=========== RECEIVED DATA SET WIFI ==========");
         ESP_LOGI(TAG, "%.*s", ret, buf);
         ESP_LOGI(TAG, "====================================");
     }
