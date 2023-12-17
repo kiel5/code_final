@@ -1,11 +1,4 @@
-/* MQTT Mutual Authentication Example
 
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
 #include <stdio.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -33,6 +26,10 @@
 #include "http_server_app.h"
 #include "app_mqtt.h"
 #include "sensor.h"
+#include "i2c_oled.h"
+
+
+
 
 static const char *TAG_mqtt = "sonoff";
 
@@ -47,11 +44,17 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_LOGI(TAG_mqtt, "done");
-    app_config();  // hoàn thành việc connect wifi
+//    app_config();  // hoàn thành việc connect wifi
 //    mqtt_app_start();
 
-    pcnt_init();
+//    pcnt_init();
 
-
+	char lineChar[20] = "kienkm59";
+    char lineChar1[20] = "hello world!";
+    oled_init();
+    oled_display_text(lineChar, 0, strlen(lineChar));
+    oled_display_text(lineChar1,1, strlen(lineChar1));
+    oled_display_text(lineChar1, 0, strlen(lineChar1));
+    oled_display_horizental(lineChar1, 3,strlen(lineChar1));
 
 }
