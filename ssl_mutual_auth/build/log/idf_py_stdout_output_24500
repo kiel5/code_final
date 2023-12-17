@@ -1,0 +1,20 @@
+[1/10] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\ssl_mutual_auth\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/8] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/i2c_oled.c.obj
+In file included from C:/Users/kien/Downloads/esp32/ssl_mutual_auth/main/i2c_oled.c:4:
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/main/font8x8_basic.h:41:16: warning: 'font8x8_basic_tr' defined but not used [-Wunused-variable]
+   41 | static uint8_t font8x8_basic_tr[128][8] = {
+      |                ^~~~~~~~~~~~~~~~
+[3/8] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/ssd1306_i2c.c.obj
+[4/8] Linking C static library esp-idf\main\libmain.a
+[5/8] Generating ld/sections.ld
+[6/8] Linking CXX executable mqtt_ssl_mutual_auth.elf
+[7/8] Generating binary image from built executable
+esptool.py v4.4
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/mqtt_ssl_mutual_auth.bin
+[8/8] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\ssl_mutual_auth\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/partition_table/partition-table.bin C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/mqtt_ssl_mutual_auth.bin"
+mqtt_ssl_mutual_auth.bin binary size 0x4dd40 bytes. Smallest app partition is 0x100000 bytes. 0xb22c0 bytes (70%) free.
