@@ -22,39 +22,46 @@
 #include "stdlib.h" 
 #include "esp_log.h"
 
-#include "app_config.h"
 #include "http_server_app.h"
 #include "app_mqtt.h"
 #include "sensor.h"
 #include "i2c_oled.h"
+#include "app_config.h"
+#include "app_ota.h"
+#include "app_nvs.h"
+#include "cJSON.h"
 
+static const char *TAG = "final";
 
-
-
-static const char *TAG_mqtt = "sonoff";
-
+#define KEY "restart_counter"
+#define KEY1 "restart_str"
 
 void app_main(void)
 {
-    ESP_LOGI(TAG_mqtt, "[APP] Startup..");
-    ESP_LOGI(TAG_mqtt, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
-    ESP_LOGI(TAG_mqtt, "[APP] IDF version: %s", esp_get_idf_version());
+    ESP_LOGI(TAG, "[APP] Startup..");
+    ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
+    ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
 
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
-    ESP_LOGI(TAG_mqtt, "done");
-//    app_config();  // hoàn thành việc connect wifi
-//    mqtt_app_start();
+    //ESP_ERROR_CHECK(esp_event_loop_create_default());
+    ESP_LOGI(TAG, "done");
 
-//    pcnt_init();
 
-	char lineChar[20] = "kienkm59";
-    char lineChar1[20] = "hello world!";
+// int restart_cnt;
+// app_nvs_get_value(KEY,&restart_cnt);
+// restart_cnt++;
+// app_nvs_set_value(KEY,restart_cnt);
+
+// char mang_set[50] ="";
+// sprintf(mang_set,"dcmmm:%d",restart_cnt);
+
+// char mang[50];
+// app_nvs_get_str(KEY1,mang);
+// app_nvs_set_str(KEY1,mang_set);
+
     oled_init();
-    oled_display_text(lineChar, 0, strlen(lineChar));
-    oled_display_text(lineChar1,1, strlen(lineChar1));
-    oled_display_text(lineChar1, 0, strlen(lineChar1));
-    oled_display_horizental(lineChar1, 3,strlen(lineChar1));
-
+    app_config(); 
+    mqtt_app_start();   
+    sensor_init();
 }

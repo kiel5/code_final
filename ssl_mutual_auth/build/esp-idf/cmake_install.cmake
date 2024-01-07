@@ -394,6 +394,41 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/protocol_examples_common/cmake_install.cmake")
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/http_server_app/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/oled/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_config/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/dht11/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/input_iot/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/output_iot/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/sensor/cmake_install.cmake")
 endif()
 
