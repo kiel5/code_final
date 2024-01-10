@@ -63,6 +63,7 @@ C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/http_server_app/libh
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/oled/liboled.a
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_config/libapp_config.a
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/libapp_mqtt.a
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/libapp_nvs_flash.a
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/dht11/libdht11.a
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/input_iot/libinput_iot.a
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/output_iot/liboutput_iot.a

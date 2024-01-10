@@ -253,12 +253,11 @@ void app_config(void)
                 {
                     ESP_LOGI(TAG_ap_config, "fail to connected wifi, retry enter ssid and password");
                     xEventGroupClearBits(s_wifi_event_group, WIFI_FAIL_BIT);
-                    esp_restart();
                     continue;
                 }
-                
                 // thêm trường hợp sau khi kết nối thành công thì bị disconnect, nếu retry connecting quá nhiều thì reset chip
             }
+            esp_restart();
         }
     }
     ESP_LOGI(TAG_config, "wifi connected ");

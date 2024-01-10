@@ -62,6 +62,7 @@ void app_main(void)
 
     oled_init();
     app_config(); 
-    mqtt_app_start();   
+   mqtt_app_start();   
     sensor_init();
+    app_ota();
 }

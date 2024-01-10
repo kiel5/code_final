@@ -16,6 +16,7 @@
 #include "app_mqtt.h"
 #include "i2c_oled.h"
 #include "cJSON.h"
+#include "app_nvs.h"
 
 // #include "esp_event_loop.h"
 #include "esp_log.h"
@@ -35,24 +36,28 @@ bool flowing = false;
 static const char *TAG = "sensor";
 static const char *TAG_MQTT = "MQTT";
 
-static QueueHandle_t qPulse, qReport_flow,qReport_pin;
-
+static QueueHandle_t qPulse, qReport_flow, qReport_pin, qPersistPulses;
+SemaphoreHandle_t sCountSem;
 
 typedef struct
 {
+    struct timeval tme;
     float lits;
     float rate;
 } report_sensor;
-
-inline long getCurrentPulses()
+long getCurrentPulses()
 {
-    float ret = 0;
+    long ret = 0;
+    xSemaphoreTake(sCountSem, portMAX_DELAY);
     ret = protectedCurrPulses;
+    xSemaphoreGive(sCountSem);
     return ret;
 }
-inline void setCurrentPulses(long p)
+void setCurrentPulses(long p)
 {
+    xSemaphoreTake(sCountSem, portMAX_DELAY);
     protectedCurrPulses = p;
+    xSemaphoreGive(sCountSem);
 }
 
 void IRAM_ATTR sensor_callback()
@@ -151,7 +156,7 @@ void task_report_pin(void *pvParameter)
         printf("%d",capacity);
         int capa = (int)capacity;
         char str_capacity[14] = "";
-        sprintf(str_capacity, "node1_pin : %d%%", capa);
+        sprintf(str_capacity, "node1_pin  %d%%", capa);
         printf("capacity_battery: %d %%",capa);
         oled_display_text(str_capacity, 3, strlen(str_capacity));
         //-------------publish mqtt---------------//
@@ -161,6 +166,7 @@ void task_report_pin(void *pvParameter)
         cJSON_Delete(data);
         int msg_id = mqtt_publish(buffer, "v1/devices/me/telemetry", strlen(buffer));
         ESP_LOGI(TAG_MQTT, "sent publish successful, msg_id=%d", msg_id);
+        
         free(buffer);
     }
     vTaskDelete(NULL);    
@@ -169,10 +175,10 @@ void task_reportFlow(void *pvParameter)
 {
 
     report_sensor report;
-    int msg_id;
+    int    msg_id;
     struct timeval now;
-    long previous_timepub = 0;
-    long tme_gap = 0;
+    long   previous_timepub = 0;
+    long   tme_gap = 0;
     ESP_LOGI(TAG, "Starting report_flow_task");
     while (1)
     {
@@ -184,9 +190,9 @@ void task_reportFlow(void *pvParameter)
         //-------------add data to json---------------//
         // cJSON *json = cJSON_CreateObject();
         cJSON *data = cJSON_CreateObject();
-        cJSON_AddStringToObject(data, "device:", "node1");
-        cJSON_AddNumberToObject(data, "Litres:", report.lits);
-        cJSON_AddNumberToObject(data, "Rate:", report.rate);
+        cJSON_AddStringToObject(data, "device", "node1");
+        cJSON_AddNumberToObject(data, "Litres", report.lits);
+        cJSON_AddNumberToObject(data, "Rate", report.rate);
         // cJSON_AddItemToObject(json, "d", data);
         char *buffer = cJSON_Print(data);
         cJSON_Delete(data);
@@ -239,7 +245,6 @@ void task_Flow(void *pvParameter)
         else
         {
             setCurrentPulses(pulses);
-            // xQueueSendToBack(qStoppedFlow, &pulses, ( TickType_t )0);
             ESP_LOGI(TAG, "pulses:%d", pulses);
         }
         gettimeofday(&now, 0);
@@ -294,52 +299,105 @@ void task_Flow(void *pvParameter)
     }
     vTaskDelete(NULL);
 }
+void taskPersist( void *pvParameters )
+{
+    // long pulses, nextPersisPulses, nextPersistTime, lastPersistPulses;
+    // struct timeval now;
+    // ESP_LOGI(TAG, "Starting persist task");
+
+    // gettimeofday(&now, 0);
+    // nextPersistTime = now.tv_sec + PERSIST_PERIOD;
+    // lastPersistPulses = getCurrentPulses();
+    // nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
+
+    // while(1) {
+    //     ESP_LOGD(TAG, "Waiting on persit Pulses queue");
+	// 	xQueueReceive(qPersistPulses, &pulses, portMAX_DELAY);
+    //     gettimeofday(&now, 0);
+    //     // don't persist too often 
+    //     // (big change in pulse count or a period of time since last persist)
+    //     if ((now.tv_sec > nextPersistTime) || (pulses > nextPersisPulses)) {
+    //         // don't persist if value hasn't changed
+    //         if (lastPersistPulses != pulses) {
+    //             persistPulses(pulses);
+    //             lastPersistPulses = pulses;
+    //             nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
+    //             nextPersistTime = now.tv_sec + PERSIST_PERIOD;
+    //         }
+    //     }
+    // }
+    // esp_vfs_spiffs_unregister(NULL);
+    // ESP_LOGI(TAG, "SPIFFS unmounted");
+    // vTaskDelete( NULL );
+}
 void sensor_init(void)
 {
     BaseType_t rc;
-    protectedCurrPulses = 0; // đọc giá trị pulse cữ từ flash
-    pulse_count = protectedCurrPulses;
 
-    qPulse = xQueueCreate(10, sizeof(long));
-    if (NULL == qPulse)
+    sCountSem = xSemaphoreCreateBinary();
+    if (NULL != sCountSem)
     {
-        ESP_LOGE(TAG, "Failed to create qPulse queue");
-        esp_restart();
-    }
-    qReport_flow = xQueueCreate(10, sizeof(report_sensor));
-    if (NULL == qReport_flow)
-    {
-        ESP_LOGE(TAG, "Failed to create qReport_flow queue");
-        esp_restart();
-    }
-    qReport_pin = xQueueCreate(10, sizeof(long));
-    if (NULL == qReport_pin)
-    {
-        ESP_LOGE(TAG, "Failed to create qReport_pin queue");
-        esp_restart();
-    }
-    rc = xTaskCreate(&task_Flow, "flow", 4096, NULL, 7, NULL);
-    if (pdPASS != rc)
-    {
-        ESP_LOGE(TAG, "Failed to create Flow task");
-        esp_restart();
-    }
-    rc = xTaskCreate(&task_read_pin, "read_pin", 4096, NULL, 6, NULL);
-    if (pdPASS != rc)
-    {
-        ESP_LOGE(TAG, "Failed to create Read_pin task");
-        esp_restart();
-    }
-    rc = xTaskCreate(&task_reportFlow, "report_flow", 4096, NULL, 5, NULL);
-    if (pdPASS != rc)
-    {
-        ESP_LOGE(TAG, "Failed to create report sensor task");
-        esp_restart();
-    }
-    rc = xTaskCreate(&task_report_pin, "report_pin", 2048, NULL, 4, NULL);
-    if (pdPASS != rc)
-    {
-        ESP_LOGE(TAG, "Failed to create report_pin task");
-        esp_restart();
+        protectedCurrPulses = 0; // đọc giá trị pulse cũ từ flash
+        pulse_count = protectedCurrPulses;
+        xSemaphoreGive(sCountSem);
+
+
+
+        qPulse = xQueueCreate(10, sizeof(long));
+        if (NULL == qPulse)
+        {
+            ESP_LOGE(TAG, "Failed to create qPulse queue");
+            esp_restart();
+        }
+        qReport_flow = xQueueCreate(10, sizeof(report_sensor));
+        if (NULL == qReport_flow)
+        {
+            ESP_LOGE(TAG, "Failed to create qReport_flow queue");
+            esp_restart();
+        }
+        qReport_pin = xQueueCreate(10, sizeof(long));
+        if (NULL == qReport_pin)
+        {
+            ESP_LOGE(TAG, "Failed to create qReport_pin queue");
+            esp_restart();
+        }
+        qPersistPulses = xQueueCreate(5, sizeof(long));
+        if (NULL == qPersistPulses)
+        {
+            ESP_LOGE(TAG, "Failed to create qPersistPulses queue");
+            esp_restart();
+        }
+
+
+        rc = xTaskCreate(&task_Flow, "flow", 4096, NULL, 7, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create Flow task");
+            esp_restart();
+        }
+        rc = xTaskCreate(&task_read_pin, "read_pin", 4096, NULL, 6, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create Read_pin task");
+            esp_restart();
+        }
+        rc = xTaskCreate(&task_reportFlow, "report_flow", 4096, NULL, 5, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create report sensor task");
+            esp_restart();
+        }
+        rc = xTaskCreate(&task_report_pin, "report_pin", 2048, NULL, 4, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create report_pin task");
+            esp_restart();
+        }
+        rc = xTaskCreate(&taskPersist, "export_txt", 4096, NULL, 3, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create Persist task");
+            esp_restart();
+        }
     }
 }

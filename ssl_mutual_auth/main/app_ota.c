@@ -52,60 +52,12 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 }
 
 esp_http_client_config_t my_config = {
-    .url = "http://192.168.1.8/app_ota.bin",
+    .url = "http://192.168.1.14/app_ota.bin",  // đường dẫn chứa file 
     .cert_pem = NULL,
     .event_handler = _http_event_handler,
     .keep_alive_enable = true,
     .skip_cert_common_name_check = true,
-}
-;
-
-int app_ota(void)
-{
-    // get_sha256_of_partitions();
-    esp_http_client_config_t *config = &my_config;
-    if (!config)
-    {
-        ESP_LOGI(TAG, "esp_http_client config not found ");
-        return ESP_ERR_INVALID_ARG;
-    }
-
-    // if (ota_config == NULL || ota_config->http_config == NULL)
-    // {
-    //     ESP_LOGE(TAG, "esp_https_ota: Invalid argument");
-    //     return ESP_ERR_INVALID_ARG;
-    // }
-
-    esp_https_ota_config_t ota_config = {
-        .http_config = config,
-    };
-    esp_https_ota_handle_t https_ota_handle = NULL;
-    esp_err_t err = esp_https_ota_begin(&ota_config, &https_ota_handle);
-    if (https_ota_handle == NULL)
-    {
-        return ESP_FAIL;
-    }
-    while (1)
-    {
-        err = esp_https_ota_perform(https_ota_handle);
-        if (err != ESP_ERR_HTTPS_OTA_IN_PROGRESS)
-        {
-            break;
-        }
-    }
-
-    esp_err_t ota_finish_err = esp_https_ota_finish(https_ota_handle);
-    if (err != ESP_OK)
-    {
-        // esp_https_ota_abort(https_ota_handle);
-        return err;
-    }
-    else if (ota_finish_err != ESP_OK)
-    {
-        return ota_finish_err;
-    }
-    return ESP_OK;
-}
+};
 static void print_sha256(const uint8_t *image_hash, const char *label)
 {
     char hash_print[HASH_LEN * 2 + 1];
@@ -132,6 +84,60 @@ static void get_sha256_of_partitions(void)
     // get sha256 digest for running partition
     esp_partition_get_sha256(esp_ota_get_running_partition(), sha_256);
     print_sha256(sha_256, "SHA-256 for current firmware: ");
+}
+
+void app_ota(void)
+{
+    ESP_LOGI(TAG, "Starting OTA example task");
+    get_sha256_of_partitions();
+    esp_http_client_config_t *config = &my_config;
+    // if (!config)
+    // {
+    //     ESP_LOGI(TAG, "esp_http_client config not found ");
+    //     return ESP_ERR_INVALID_ARG;
+    // }
+
+    esp_https_ota_config_t ota_config = {
+        .http_config = config,
+    };
+    ESP_LOGI(TAG, "Attempting to download update from %s", config->url);
+    esp_err_t ret = esp_https_ota(&ota_config);
+    if (ret == ESP_OK) {
+        ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
+        esp_restart();
+    } else {
+        ESP_LOGE(TAG, "Firmware upgrade failed");
+    }
+
+    
+    // esp_https_ota_handle_t https_ota_handle = NULL;
+    // ESP_LOGI(TAG, "Attempting to download update from %s", config.url);
+    // esp_err_t err = esp_https_ota_begin(&ota_config, &https_ota_handle);
+    // if (https_ota_handle == NULL)
+    // {
+    //     return ESP_FAIL;
+    // }
+    // while (1)
+    // {
+    //     err = esp_https_ota_perform(https_ota_handle);
+    //     if (err != ESP_ERR_HTTPS_OTA_IN_PROGRESS)
+    //     {
+    //         break;
+    //     }
+    // }
+
+    // esp_err_t ota_finish_err = esp_https_ota_finish(https_ota_handle);
+    // if (err != ESP_OK)
+    // {
+    //     esp_https_ota_abort(https_ota_handle);
+    //     return err;
+    // }
+    // else if (ota_finish_err != ESP_OK)
+    // {
+    //     return ota_finish_err;
+    // }
+    // ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
+    // esp_restart();
 }
 
 

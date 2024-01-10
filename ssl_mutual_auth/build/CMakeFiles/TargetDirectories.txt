@@ -629,6 +629,13 @@ C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/CMakeFiles/
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/CMakeFiles/install.dir
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/CMakeFiles/install/local.dir
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_mqtt/CMakeFiles/install/strip.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/__idf_app_nvs_flash.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/edit_cache.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/rebuild_cache.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/list_install_components.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/install.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/install/local.dir
+C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/app_nvs_flash/CMakeFiles/install/strip.dir
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/dht11/CMakeFiles/__idf_dht11.dir
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/dht11/CMakeFiles/edit_cache.dir
 C:/Users/kien/Downloads/esp32/ssl_mutual_auth/build/esp-idf/dht11/CMakeFiles/rebuild_cache.dir
