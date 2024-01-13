@@ -59,10 +59,10 @@ void app_main(void)
 // char mang[50];
 // app_nvs_get_str(KEY1,mang);
 // app_nvs_set_str(KEY1,mang_set);
-
-    oled_init();
+printf("%s","dcmm");
+     oled_init();
     app_config(); 
-   mqtt_app_start();   
-    sensor_init();
+    //mqtt_app_start();   
+    //sensor_init();
     app_ota();
 }

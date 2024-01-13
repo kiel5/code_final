@@ -59,9 +59,6 @@ int mqtt_publish(const char* msg, const char* topic, uint16_t len)
 }
 void receivemsg_task(int len, char *msg)
 {
-    /*{"method": "setValue", 
-       "params": {"x": 100, "y":200}}
-    */
   printf("%s", msg);
 
   cJSON *method;
@@ -73,11 +70,12 @@ void receivemsg_task(int len, char *msg)
   printf("%s\n", method->valuestring);
   printf("%s\n", params->valuestring);
 
-    // if(strcmp(method->valuestring,"setValue")==0)
-    // {
+
+    if(strcmp(method->valuestring,"dtm")==0)
+    {
         
-    //     limiar_accel_x=atoi(params->valuestring);
-    // }
+        int dcmm =atoi(params->valuestring);
+    }
 }
 
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
@@ -89,7 +87,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
-        msg_id = esp_mqtt_client_subscribe(client, "v1/devices/me/telemetry", 0);
+        msg_id = esp_mqtt_client_subscribe(client, "v1/devices/me/attributes", 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
         break;
     case MQTT_EVENT_DISCONNECTED:
@@ -106,9 +104,9 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         break;
     case MQTT_EVENT_DATA:
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
-        // printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
-        // printf("DATA =%.*s\r\n", event->data_len, event->data);
-        receivemsg_task(event->data_len, event->data);
+        printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
+        printf("DATA =%.*s\r\n", event->data_len, event->data);
+        //   receivemsg_task(event->data_len, event->data);
         break;
     case MQTT_EVENT_ERROR:
         ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
@@ -143,5 +141,4 @@ void mqtt_app_start(void)
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
     esp_mqtt_client_start(client);
 }
-
 

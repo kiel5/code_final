@@ -14,3 +14,4 @@ target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "common/app_mqtt/client.crt" TE
 target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "common/app_mqtt/client.key" TEXT)
 target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "common/app_mqtt/mosquitto.org.crt" TEXT)
 target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "html/index.html" TEXT)
+target_add_binary_data(${CMAKE_PROJECT_NAME}.elf "common/app_ota/server_cert/ca_cert.pem" TEXT)

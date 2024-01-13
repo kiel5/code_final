@@ -18,6 +18,9 @@
 static const char *TAG = "OTA_APP";
 
 #define OTA_URL_SIZE 256
+extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
+extern const uint8_t server_cert_pem_end  [] asm("_binary_ca_cert_pem_end");
+
 
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
@@ -52,11 +55,12 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 }
 
 esp_http_client_config_t my_config = {
-    .url = "http://192.168.1.14/app_ota.bin",  // đường dẫn chứa file 
-    .cert_pem = NULL,
+    .url = "https://raw.githubusercontent.com/kiel5/ota_fw/master/blink.bin",  // đường dẫn chứa file 
+   // .url ="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.1.bin",
+    .cert_pem = (char *)server_cert_pem_start,
     .event_handler = _http_event_handler,
     .keep_alive_enable = true,
-    .skip_cert_common_name_check = true,
+    .skip_cert_common_name_check = false,
 };
 static void print_sha256(const uint8_t *image_hash, const char *label)
 {
