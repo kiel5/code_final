@@ -30,10 +30,9 @@
 #include "app_ota.h"
 #include "app_nvs.h"
 #include "cJSON.h"
-
+#include "esp_idf_version.h"
 static const char *TAG = "final";
 
-#define KEY "restart_counter"
 #define KEY1 "restart_str"
 
 void app_main(void)
@@ -59,10 +58,9 @@ void app_main(void)
 // char mang[50];
 // app_nvs_get_str(KEY1,mang);
 // app_nvs_set_str(KEY1,mang_set);
-printf("%s","dcmm");
-     oled_init();
+    printf("%s","dcmm");
+    oled_init();
     app_config(); 
-    //mqtt_app_start();   
-    //sensor_init();
-    app_ota();
+    mqtt_app_start();   
+    sensor_init();
 }

@@ -10,17 +10,17 @@
 #include "string.h"
 
 #include "app_ota.h"
-
+#include "app_mqtt.h"
+#include "cJSON.h"
 #include <sys/socket.h>
 
 #define HASH_LEN 32
-
 static const char *TAG = "OTA_APP";
 
+otaConfig otaC;
 #define OTA_URL_SIZE 256
 extern const uint8_t server_cert_pem_start[] asm("_binary_ca_cert_pem_start");
-extern const uint8_t server_cert_pem_end  [] asm("_binary_ca_cert_pem_end");
-
+extern const uint8_t server_cert_pem_end[] asm("_binary_ca_cert_pem_end");
 
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
@@ -55,8 +55,9 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 }
 
 esp_http_client_config_t my_config = {
-    .url = "https://raw.githubusercontent.com/kiel5/ota_fw/master/blink.bin",  // đường dẫn chứa file 
-   // .url ="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.1.bin",
+    // .url = "https://raw.githubusercontent.com/kiel5/ota_fw/master/blink.bin",  // đường dẫn chứa file
+    // .url ="https://raw.githubusercontent.com/thingsboard/esp32-ota/master/firmware/example-v1.1.bin",
+    .url = otaC.url,
     .cert_pem = (char *)server_cert_pem_start,
     .event_handler = _http_event_handler,
     .keep_alive_enable = true,
@@ -90,7 +91,7 @@ static void get_sha256_of_partitions(void)
     print_sha256(sha_256, "SHA-256 for current firmware: ");
 }
 
-void app_ota(void)
+void app_ota(void *pvParameter)
 {
     ESP_LOGI(TAG, "Starting OTA example task");
     get_sha256_of_partitions();
@@ -106,42 +107,37 @@ void app_ota(void)
     };
     ESP_LOGI(TAG, "Attempting to download update from %s", config->url);
     esp_err_t ret = esp_https_ota(&ota_config);
-    if (ret == ESP_OK) {
+    if (ret == ESP_OK)
+    {
         ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
-        esp_restart();
-    } else {
-        ESP_LOGE(TAG, "Firmware upgrade failed");
+        cJSON *root = cJSON_CreateObject();
+        cJSON_AddStringToObject(root, "OTA_status", "done");
+        cJSON_AddStringToObject(root, "OTA_version_lastupdate", otaC.version);
+        char *buffer = cJSON_Print(root);
+        cJSON_Delete(root);
+        int msg_id = mqtt_publish(buffer, strlen(buffer));
+        if (msg_id >= 0)
+        {
+            free(buffer);
+            printf("prepare restart");
+            esp_restart();
+        }
+        else
+        {
+            free(buffer);
+            printf("Publish failed, restarting in 2s");
+            vTaskDelay(2000 / portTICK_PERIOD_MS);
+            esp_restart();
+        }
     }
-
-    
-    // esp_https_ota_handle_t https_ota_handle = NULL;
-    // ESP_LOGI(TAG, "Attempting to download update from %s", config.url);
-    // esp_err_t err = esp_https_ota_begin(&ota_config, &https_ota_handle);
-    // if (https_ota_handle == NULL)
-    // {
-    //     return ESP_FAIL;
-    // }
-    // while (1)
-    // {
-    //     err = esp_https_ota_perform(https_ota_handle);
-    //     if (err != ESP_ERR_HTTPS_OTA_IN_PROGRESS)
-    //     {
-    //         break;
-    //     }
-    // }
-
-    // esp_err_t ota_finish_err = esp_https_ota_finish(https_ota_handle);
-    // if (err != ESP_OK)
-    // {
-    //     esp_https_ota_abort(https_ota_handle);
-    //     return err;
-    // }
-    // else if (ota_finish_err != ESP_OK)
-    // {
-    //     return ota_finish_err;
-    // }
-    // ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
-    // esp_restart();
+    else
+    {
+        ESP_LOGE(TAG, "Firmware upgrade failed");
+        cJSON *root = cJSON_CreateObject();
+        cJSON_AddStringToObject(root, "OTA_status", "fail");
+        char *buffer = cJSON_Print(root);
+        cJSON_Delete(root);
+        int msg_id = mqtt_publish(buffer, strlen(buffer));
+        free(buffer);
+    }
 }
-
-

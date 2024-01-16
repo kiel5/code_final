@@ -132,9 +132,6 @@ bool is_provisioned(void)
     }
     return provisioned;
 }
-// void switch_data_callback(char *data,uint16_t len)
-
-
 void http_post_data_wifi_callback(char* buf, uint16_t len)
 {
     printf("%s\n",buf);
