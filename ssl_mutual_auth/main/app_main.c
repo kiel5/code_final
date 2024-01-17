@@ -35,6 +35,7 @@ static const char *TAG = "final";
 
 #define KEY1 "restart_str"
 
+
 void app_main(void)
 {
     ESP_LOGI(TAG, "[APP] Startup..");
@@ -46,21 +47,9 @@ void app_main(void)
     //ESP_ERROR_CHECK(esp_event_loop_create_default());
     ESP_LOGI(TAG, "done");
 
-
-// int restart_cnt;
-// app_nvs_get_value(KEY,&restart_cnt);
-// restart_cnt++;
-// app_nvs_set_value(KEY,restart_cnt);
-
-// char mang_set[50] ="";
-// sprintf(mang_set,"dcmmm:%d",restart_cnt);
-
-// char mang[50];
-// app_nvs_get_str(KEY1,mang);
-// app_nvs_set_str(KEY1,mang_set);
-    printf("%s","dcmm");
     oled_init();
     app_config(); 
     mqtt_app_start();   
     sensor_init();
+
 }

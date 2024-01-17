@@ -94,6 +94,13 @@ static void get_sha256_of_partitions(void)
 void app_ota(void *pvParameter)
 {
     ESP_LOGI(TAG, "Starting OTA example task");
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "OTA_Status", "start update ota");
+    cJSON_AddStringToObject(root, "OTA_URL", otaC.url);
+    char *buffer = cJSON_Print(root);
+    cJSON_Delete(root);
+    int msg_id = mqtt_publish(buffer, strlen(buffer));
+    free(buffer);
     get_sha256_of_partitions();
     esp_http_client_config_t *config = &my_config;
     // if (!config)
@@ -111,7 +118,7 @@ void app_ota(void *pvParameter)
     {
         ESP_LOGI(TAG, "OTA Succeed, Rebooting...");
         cJSON *root = cJSON_CreateObject();
-        cJSON_AddStringToObject(root, "OTA_status", "done");
+        cJSON_AddStringToObject(root, "OTA_status", "done update ota");
         cJSON_AddStringToObject(root, "OTA_version_lastupdate", otaC.version);
         char *buffer = cJSON_Print(root);
         cJSON_Delete(root);
@@ -134,7 +141,7 @@ void app_ota(void *pvParameter)
     {
         ESP_LOGE(TAG, "Firmware upgrade failed");
         cJSON *root = cJSON_CreateObject();
-        cJSON_AddStringToObject(root, "OTA_status", "fail");
+        cJSON_AddStringToObject(root, "OTA_Status", "fail");
         char *buffer = cJSON_Print(root);
         cJSON_Delete(root);
         int msg_id = mqtt_publish(buffer, strlen(buffer));

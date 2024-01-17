@@ -88,3 +88,17 @@ void app_nvs_get_str(char *key, char *out)
     }
     nvs_close(my_handle);
 }
+
+//test nvs 
+
+// int restart_cnt;
+// app_nvs_get_value(KEY,&restart_cnt);
+// restart_cnt++;
+// app_nvs_set_value(KEY,restart_cnt);
+
+// char mang_set[50] ="";
+// sprintf(mang_set,"dcmmm:%d",restart_cnt);
+
+// char mang[50];
+// app_nvs_get_str(KEY1,mang);
+// app_nvs_set_str(KEY1,mang_set);

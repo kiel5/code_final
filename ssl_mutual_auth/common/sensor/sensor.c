@@ -10,6 +10,8 @@
 #include "esp_adc/adc_oneshot.h"
 #include "esp_adc/adc_cali.h"
 #include "esp_adc/adc_cali_scheme.h"
+#include "esp_spiffs.h"
+#include <sys/stat.h>
 
 #include "sensor.h"
 #include "input_iot.h"
@@ -21,17 +23,18 @@
 // #include "esp_event_loop.h"
 #include "esp_log.h"
 
-#define PULSEPERLITRE        450
-#define ADC_READ_PIN         ADC_CHANNEL_7
+#define PULSEPERLITRE 450
+#define ADC_READ_PIN ADC_CHANNEL_7
+#define PERSIST_DIFFERENCE 500
+#define PERSIST_PERIOD 600
 
-TickType_t delay_1Sec  = 1000 / portTICK_PERIOD_MS;
-TickType_t delay_5Sec  = 5000 / portTICK_PERIOD_MS;
+TickType_t delay_1Sec = 1000 / portTICK_PERIOD_MS;
+TickType_t delay_5Sec = 5000 / portTICK_PERIOD_MS;
 TickType_t delay_100ms = 100 / portTICK_PERIOD_MS;
 
 long protectedCurrPulses = 0L;
-int  pulse_count = 0;
+int pulse_count = 0;
 bool flowing = false;
-
 
 static const char *TAG = "sensor";
 static const char *TAG_MQTT = "MQTT";
@@ -107,7 +110,7 @@ static void adc_calibration_deinit(adc_cali_handle_t handle)
 
 void task_read_pin(void *pvParameter)
 {
-        //-------------ADC1 Init---------------//
+    //-------------ADC1 Init---------------//
     adc_oneshot_unit_handle_t adc1_handle;
     adc_oneshot_unit_init_cfg_t init_config1 = {
         .unit_id = ADC_UNIT_1,
@@ -129,56 +132,84 @@ void task_read_pin(void *pvParameter)
     ESP_LOGI(TAG, "Starting read_pin_task");
     while (1)
     {
+        int counter = 0;
         ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, ADC_READ_PIN, &adc_raw));
         ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_raw, &voltage));
         ESP_LOGI(TAG, "ADC: ADC%d Channel[%d] Cali Voltage: %d mV", ADC_UNIT_1 + 1, ADC_READ_PIN, voltage);
-        float battery = voltage*11*0.001;
-        float Capacity = (-96.63*battery*battery*battery + 999.34*battery*battery - 3278.71*battery +3400.59);
-        xQueueSendToBack(qReport_pin, &Capacity, (TickType_t)0);
+        float battery = voltage * 11 * 0.001;
+        int Capacity = (int)(-96.63 * battery * battery * battery + 999.34 * battery * battery - 3278.71 * battery + 3400.59);
+        if (Capacity <= 100 && Capacity >= 0)
+        {
+            xQueueSendToBack(qReport_pin, &Capacity, (TickType_t)0);
+        }
+        else
+        {
+            counter++;
+            if (counter == 5)
+            {
+                int var_fail = -5;
+                xQueueSendToBack(qReport_pin, &var_fail, (TickType_t)0);
+                counter = 0;
+            }
+        }
         vTaskDelay(delay_5Sec);
-
     }
     ESP_ERROR_CHECK(adc_oneshot_del_unit(adc1_handle));
     adc_calibration_deinit(adc1_cali_handle);
     vTaskDelete(NULL);
-    
 }
 void task_report_pin(void *pvParameter)
 {
-    float capacity = 0;
+    int capacity = 0;
     ESP_LOGI(TAG, "Starting report_pin_task");
     while (1)
     {
         //-------------wait data from task read_pin---------------//
         ESP_LOGI(TAG, "Waiting on reporting capacity battery");
-		xQueueReceive(qReport_pin, &capacity, portMAX_DELAY);
-        //-------------display capacity battery in oled---------------//
-        printf("%d",capacity);
-        int capa = (int)capacity;
-        char str_capacity[14] = "";
-        sprintf(str_capacity, "node1_pin  %d%%", capa);
-        printf("capacity_battery: %d %%",capa);
-        oled_display_text(str_capacity, 3, strlen(str_capacity));
-        //-------------publish mqtt---------------//
-        cJSON *data = cJSON_CreateObject();
-        cJSON_AddNumberToObject(data, "Cacacity_battery", capa);
-        char *buffer = cJSON_Print(data);
-        cJSON_Delete(data);
-        int msg_id = mqtt_publish(buffer, strlen(buffer));
-        ESP_LOGI(TAG_MQTT, "sent publish successful, msg_id=%d", msg_id);
-        
-        free(buffer);
+        xQueueReceive(qReport_pin, &capacity, portMAX_DELAY);
+
+        if (capacity == -5)
+        {
+            ESP_LOGI(TAG, "read_battery fail");
+            oled_display_text("read_pin fail", 3, strlen("read_pin fail"));
+
+            //-------------publish mqtt---------------//
+            cJSON *data = cJSON_CreateObject();
+            cJSON_AddStringToObject(data, "Cacacity_battery", "fail");
+            char *buffer = cJSON_Print(data);
+            int msg_id = mqtt_publish(buffer, strlen(buffer));
+            ESP_LOGI(TAG_MQTT, "sent publish capacity fail, msg_id=%d", msg_id);
+            cJSON_Delete(data);
+            free(buffer);
+        }
+        else
+        {
+            //-------------display capacity battery in oled---------------//
+            ESP_LOGI(TAG, "capacity battery: %d", capacity);
+            char str_capacity[14] = "";
+            sprintf(str_capacity, "node1_pin  %d%%", capacity);
+            oled_display_text(str_capacity, 3, strlen(str_capacity));
+
+            //-------------publish mqtt---------------//
+            cJSON *data = cJSON_CreateObject();
+            cJSON_AddNumberToObject(data, "Cacacity_battery", capacity);
+            char *buffer = cJSON_Print(data);
+            cJSON_Delete(data);
+            int msg_id = mqtt_publish(buffer, strlen(buffer));
+            ESP_LOGI(TAG_MQTT, "sent publish capacity battery successful, msg_id=%d", msg_id);
+            free(buffer);
+        }
     }
-    vTaskDelete(NULL);    
+    vTaskDelete(NULL);
 }
 void task_reportFlow(void *pvParameter)
 {
 
     report_sensor report;
-    int    msg_id;
+    int msg_id;
     struct timeval now;
-    long   previous_timepub = 0;
-    long   tme_gap = 0;
+    long previous_timepub = 0;
+    long tme_gap = 0;
     ESP_LOGI(TAG, "Starting report_flow_task");
     while (1)
     {
@@ -210,7 +241,7 @@ void task_reportFlow(void *pvParameter)
         {
             previous_timepub = now.tv_sec;
             msg_id = mqtt_publish(buffer, strlen(buffer));
-            ESP_LOGI(TAG_MQTT, "sent publish successful, msg_id=%d", msg_id);
+            ESP_LOGI(TAG_MQTT, "sent publish volume and rate successful, msg_id=%d", msg_id);
         }
         free(buffer);
     }
@@ -246,6 +277,7 @@ void task_Flow(void *pvParameter)
         {
             setCurrentPulses(pulses);
             ESP_LOGI(TAG, "pulses:%d", pulses);
+            xQueueSendToBack(qPersistPulses, &pulses, (TickType_t)0);
         }
         gettimeofday(&now, 0);
         interval = now.tv_sec - previousReportingTime;
@@ -277,7 +309,7 @@ void task_Flow(void *pvParameter)
                 previousReportingPulses = pulses;
                 previousReportingRate = 0.0;
                 // give persist task chance to persist latest value
-                // xQueueSendToBack(qPersistPulses, &pulses, (TickType_t)0);
+                xQueueSendToBack(qPersistPulses, &pulses, (TickType_t)0);
             }
         }
         else
@@ -286,8 +318,8 @@ void task_Flow(void *pvParameter)
             if (interval > 1L)
             {
                 // water being used - 1 second reporting
-                 report.tme.tv_sec = now.tv_sec;
-                 report.tme.tv_usec = now.tv_usec;
+                report.tme.tv_sec = now.tv_sec;
+                report.tme.tv_usec = now.tv_usec;
                 report.lits = (float)pulses / PULSEPERLITRE;
                 report.rate = ((float)(pulses - previousReportingPulses) / PULSEPERLITRE) * 60 / interval;
                 xQueueSendToBack(qReport_flow, &report, (TickType_t)0);
@@ -299,50 +331,166 @@ void task_Flow(void *pvParameter)
     }
     vTaskDelete(NULL);
 }
-void taskPersist( void *pvParameters )
+
+void persist_pulse(long pulses)
 {
-    // long pulses, nextPersisPulses, nextPersistTime, lastPersistPulses;
-    // struct timeval now;
-    // ESP_LOGI(TAG, "Starting persist task");
+    if (!esp_spiffs_mounted("config"))
+    {
+        ESP_LOGE(TAG, "persist_pulse: Config partition not mounted");
+    }
+    if (rename("/fs/pulses.txt", "/fs/pulses_old.txt") != 0)
+    {
+        ESP_LOGE(TAG, "Rename failed");
+    }
+    FILE *f = fopen("/fs/pulses.txt", "wb");
+    if (f == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to open file for writing");
+        return;
+    }
+    fwrite(&pulses, sizeof pulses, 1, f);
+    fclose(f);
+    remove("/fs/pulses_old.txt");
+    ESP_LOGI(TAG, "Pulse file written");
+}
+long read_pulse()
+{
+    long ret = 0L;
+    if (!esp_spiffs_mounted("config"))
+    {
+        ESP_LOGE(TAG, "persist_pulse: Config partition not mounted");
+    }
+    // Check if pulses file exists
+    struct stat st;
+    if (stat("/fs/pulses.txt", &st) == 0)
+    {
+        FILE *f = fopen("/fs/pulses.txt", "rb");
+        if (f == NULL)
+        {
+            ESP_LOGE(TAG, "Failed to open pulses file for reading");
+            f = fopen("/fs/pulses_old.txt", "rb");
+            if (f == NULL)
+            {
+                return 0L;
+            }
+        }
+        size_t s = fread(&ret, sizeof ret, 1, f);
+        fclose(f);
+        if (s == 0)
+        {
+            f = fopen("/fs/pulses_old.txt", "rb");
+            if (f == NULL)
+            {
+                return 0L;
+            }
+            size_t s = fread(&ret, sizeof ret, 1, f);
+            fclose(f);
+            if (s == 0)
+            {
+                return 0L;
+            }
+        }
+    }
+    else
+    {
+        // no pulses file exists, create one
+        ESP_LOGW(TAG, "No pulses file available");
+        FILE *f = fopen("/fs/pulses.txt", "wb");
+        if (f == NULL)
+        {
+            ESP_LOGE(TAG, "Failed to open file for writing");
+            return 0L;
+        }
+        fwrite(&ret, sizeof ret, 1, f);
+        fclose(f);
+    }
+    ESP_LOGI(TAG, "Pulse file read = %li", ret);
+    return ret;
+}
 
-    // gettimeofday(&now, 0);
-    // nextPersistTime = now.tv_sec + PERSIST_PERIOD;
-    // lastPersistPulses = getCurrentPulses();
-    // nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
+void task_persist(void *pvParameters)
+{
+    long pulses, nextPersisPulses, nextPersistTime, lastPersistPulses;
+    struct timeval now;
+    ESP_LOGI(TAG, "Starting persist task");
 
-    // while(1) {
-    //     ESP_LOGD(TAG, "Waiting on persit Pulses queue");
-	// 	xQueueReceive(qPersistPulses, &pulses, portMAX_DELAY);
-    //     gettimeofday(&now, 0);
-    //     // don't persist too often 
-    //     // (big change in pulse count or a period of time since last persist)
-    //     if ((now.tv_sec > nextPersistTime) || (pulses > nextPersisPulses)) {
-    //         // don't persist if value hasn't changed
-    //         if (lastPersistPulses != pulses) {
-    //             persistPulses(pulses);
-    //             lastPersistPulses = pulses;
-    //             nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
-    //             nextPersistTime = now.tv_sec + PERSIST_PERIOD;
-    //         }
-    //     }
-    // }
-    // esp_vfs_spiffs_unregister(NULL);
-    // ESP_LOGI(TAG, "SPIFFS unmounted");
-    // vTaskDelete( NULL );
+    gettimeofday(&now, 0);
+    nextPersistTime = now.tv_sec + PERSIST_PERIOD;
+    lastPersistPulses = getCurrentPulses();
+    nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
+
+    while (1)
+    {
+        ESP_LOGD(TAG, "Waiting on persit Pulses queue");
+        xQueueReceive(qPersistPulses, &pulses, portMAX_DELAY);
+        gettimeofday(&now, 0);
+        // don't persist too often
+        // (big change in pulse count or a period of time since last persist)
+        if ((now.tv_sec > nextPersistTime) || (pulses > nextPersisPulses))
+        {
+            // don't persist if value hasn't changed
+            if (lastPersistPulses != pulses)
+            {
+                persist_pulse(pulses);
+                lastPersistPulses = pulses;
+                nextPersisPulses = lastPersistPulses + PERSIST_DIFFERENCE;
+                nextPersistTime = now.tv_sec + PERSIST_PERIOD;
+            }
+        }
+    }
+    esp_vfs_spiffs_unregister(NULL);
+    ESP_LOGI(TAG, "SPIFFS unmounted");
+    vTaskDelete(NULL);
 }
 void sensor_init(void)
 {
+    ESP_LOGI(TAG, "Initializing SPIFFS");
+
+    //*********************spiffs init********************************//
+    esp_vfs_spiffs_conf_t fs_conf = {
+        .base_path = "/fs",
+        .partition_label = "config",
+        .max_files = 5,
+        .format_if_mount_failed = true};
+    esp_err_t ret = esp_vfs_spiffs_register(&fs_conf);
+
+    if (ret != ESP_OK)
+    {
+        if (ret == ESP_FAIL)
+        {
+            ESP_LOGE(TAG, "Failed to mount or format filesystem");
+        }
+        else if (ret == ESP_ERR_NOT_FOUND)
+        {
+            ESP_LOGE(TAG, "Failed to find SPIFFS partition");
+        }
+        else
+        {
+            ESP_LOGE(TAG, "Failed to initialize SPIFFS (%s)", esp_err_to_name(ret));
+        }
+    }
+    size_t total = 0, used = 0;
+    ret = esp_spiffs_info("config", &total, &used);
+    if (ret != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to get SPIFFS partition information (%s)", esp_err_to_name(ret));
+    }
+    else
+    {
+        ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
+    }
+
     BaseType_t rc;
 
     sCountSem = xSemaphoreCreateBinary();
     if (NULL != sCountSem)
     {
-        protectedCurrPulses = 0; // đọc giá trị pulse cũ từ flash
+        //**********************read old pulse from flash****************************//
+        protectedCurrPulses = read_pulse(); // đọc giá trị pulse cũ từ flash
         pulse_count = protectedCurrPulses;
         xSemaphoreGive(sCountSem);
 
-
-
+        //*********************queue init********************************//
         qPulse = xQueueCreate(10, sizeof(long));
         if (NULL == qPulse)
         {
@@ -361,14 +509,13 @@ void sensor_init(void)
             ESP_LOGE(TAG, "Failed to create qReport_pin queue");
             esp_restart();
         }
-        // qPersistPulses = xQueueCreate(5, sizeof(long));
-        // if (NULL == qPersistPulses)
-        // {
-        //     ESP_LOGE(TAG, "Failed to create qPersistPulses queue");
-        //     esp_restart();
-        // }
-
-
+        qPersistPulses = xQueueCreate(5, sizeof(long));
+        if (NULL == qPersistPulses)
+        {
+            ESP_LOGE(TAG, "Failed to create qPersistPulses queue");
+            esp_restart();
+        }
+        //*********************create task********************************//
         rc = xTaskCreate(&task_Flow, "flow", 4096, NULL, 7, NULL);
         if (pdPASS != rc)
         {
@@ -387,17 +534,17 @@ void sensor_init(void)
             ESP_LOGE(TAG, "Failed to create report sensor task");
             esp_restart();
         }
-        rc = xTaskCreate(&task_report_pin, "report_pin", 2048, NULL, 4, NULL);
+        rc = xTaskCreate(&task_report_pin, "report_pin", 2048, NULL, 5, NULL);
         if (pdPASS != rc)
         {
             ESP_LOGE(TAG, "Failed to create report_pin task");
             esp_restart();
         }
-        // rc = xTaskCreate(&taskPersist, "export_txt", 4096, NULL, 3, NULL);
-        // if (pdPASS != rc)
-        // {
-        //     ESP_LOGE(TAG, "Failed to create Persist task");
-        //     esp_restart();
-        // }
+        rc = xTaskCreate(&task_persist, "export_txt", 4096, NULL, 4, NULL);
+        if (pdPASS != rc)
+        {
+            ESP_LOGE(TAG, "Failed to create persist task");
+            esp_restart();
+        }
     }
 }

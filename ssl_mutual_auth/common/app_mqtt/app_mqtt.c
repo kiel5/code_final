@@ -125,7 +125,7 @@ void receivemsg_task(esp_mqtt_event_handle_t event)
             else
             {
                 cJSON *root = cJSON_CreateObject();
-                cJSON_AddStringToObject(root, "ota_err", "invalid OTA parameter URL or cert or version");
+                cJSON_AddStringToObject(root, "OTA_Err", "invalid OTA parameter URL or cert or version");
                 char *buffer = cJSON_Print(root);
                 cJSON_Delete(root);
                 int msg_id = mqtt_publish(buffer, strlen(buffer));
@@ -136,7 +136,7 @@ void receivemsg_task(esp_mqtt_event_handle_t event)
         {
             ESP_LOGE(TAG, "Invalid JSON format null");
             cJSON *root = cJSON_CreateObject();
-            cJSON_AddStringToObject(root, "ota_err", "error parse json");
+            cJSON_AddStringToObject(root, "OTA_Err", "error parse json");
             char *buffer = cJSON_Print(root);
             cJSON_Delete(root);
             int msg_id = mqtt_publish(buffer, strlen(buffer));
@@ -153,7 +153,7 @@ void receivemsg_task(esp_mqtt_event_handle_t event)
             ESP_LOGI(TAG, "err update ota");
             // publish version firmware
             cJSON *root = cJSON_CreateObject();
-            cJSON_AddStringToObject(root, "ota_err", "error version OTA match or url is incorrect");
+            cJSON_AddStringToObject(root, "OTA_Err", "error version OTA match or url is incorrect");
             char *buffer = cJSON_Print(root);
             cJSON_Delete(root);
             int msg_id = mqtt_publish(buffer, strlen(buffer));
