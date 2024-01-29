@@ -20,9 +20,9 @@
 #include "cJSON.h"
 #include "app_nvs.h"
 
-// #include "esp_event_loop.h"
 #include "esp_log.h"
 
+#define button_GPIO 26
 #define PULSEPERLITRE 450
 #define ADC_READ_PIN ADC_CHANNEL_7
 #define PERSIST_DIFFERENCE 500
@@ -35,6 +35,7 @@ TickType_t delay_100ms = 100 / portTICK_PERIOD_MS;
 long protectedCurrPulses = 0L;
 int pulse_count = 0;
 bool flowing = false;
+bool flag_button = false;
 
 static const char *TAG = "sensor";
 static const char *TAG_MQTT = "MQTT";
@@ -63,11 +64,21 @@ void setCurrentPulses(long p)
     xSemaphoreGive(sCountSem);
 }
 
-void IRAM_ATTR sensor_callback()
+void IRAM_ATTR sensor_callback(int pin)
 {
-    pulse_count++;
-    xQueueSendToBackFromISR(qPulse, &pulse_count, (TickType_t)0);
+    if (pin == GPIO_NUM_23)
+    {
+        pulse_count++;
+        xQueueSendToBackFromISR(qPulse, &pulse_count, (TickType_t)0);
+    }
+    if (pin == GPIO_NUM_26)
+    {
+        flag_button = true;
+        pulse_count = 0;
+        xQueueSendToBackFromISR(qPulse, &pulse_count, (TickType_t)0);
+    }
 }
+
 static bool adc_calibration_init(adc_unit_t unit, adc_atten_t atten, adc_cali_handle_t *out_handle)
 {
     adc_cali_handle_t handle = NULL;
@@ -129,10 +140,11 @@ void task_read_pin(void *pvParameter)
     adc_calibration_init(ADC_UNIT_1, ADC_ATTEN_DB_2_5, &adc1_cali_handle);
     int adc_raw;
     int voltage;
+    int counter = 0;
+
     ESP_LOGI(TAG, "Starting read_pin_task");
     while (1)
     {
-        int counter = 0;
         ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, ADC_READ_PIN, &adc_raw));
         ESP_ERROR_CHECK(adc_cali_raw_to_voltage(adc1_cali_handle, adc_raw, &voltage));
         ESP_LOGI(TAG, "ADC: ADC%d Channel[%d] Cali Voltage: %d mV", ADC_UNIT_1 + 1, ADC_READ_PIN, voltage);
@@ -145,7 +157,7 @@ void task_read_pin(void *pvParameter)
         else
         {
             counter++;
-            if (counter == 5)
+            if (counter == 2)
             {
                 int var_fail = -5;
                 xQueueSendToBack(qReport_pin, &var_fail, (TickType_t)0);
@@ -221,18 +233,24 @@ void task_reportFlow(void *pvParameter)
         //-------------add data to json---------------//
         // cJSON *json = cJSON_CreateObject();
         cJSON *data = cJSON_CreateObject();
+        char valuelits[5] = "";
+        char valuerate[5] = "";
+        sprintf(valuelits, "%.2f", report.lits);
+        sprintf(valuerate, "%.2f", report.rate);
         cJSON_AddStringToObject(data, "device", "node1");
-        cJSON_AddNumberToObject(data, "Litres", report.lits);
-        cJSON_AddNumberToObject(data, "Rate", report.rate);
+        cJSON_AddStringToObject(data, "Litres", valuelits);
+        cJSON_AddStringToObject(data, "Rate", valuerate);
+        // cJSON_AddNumberToObject(data, "Litres", report.lits);
+        // cJSON_AddNumberToObject(data, "Rate", report.rate);
         // cJSON_AddItemToObject(json, "d", data);
         char *buffer = cJSON_Print(data);
         cJSON_Delete(data);
         ESP_LOGI(TAG, "Reporting json : %s", buffer);
         //-------------display data sensor in oled---------------//
-        char str_value_rate[14] = "";
-        char str_value_lits[14] = "";
-        sprintf(str_value_lits, "node1_lits: %0.3f", report.lits);
-        sprintf(str_value_rate, "node1_rate: %0.3f", report.rate);
+        char str_value_rate[17] = "";
+        char str_value_lits[17] = "";
+        sprintf(str_value_lits, "node1_lits: %0.2f", report.lits);
+        sprintf(str_value_rate, "node1_rate: %0.2f", report.rate);
         // oled_display_text("devide: node1", 0, strlen("devide: node1"));
         oled_display_text(str_value_rate, 1, strlen(str_value_rate));
         oled_display_text(str_value_lits, 2, strlen(str_value_lits));
@@ -262,6 +280,9 @@ void task_Flow(void *pvParameter)
     previousReportingRate = 0.0;
     previousReportingPulses = pulses; // số xung trước đó
     previousReportingTime = 0;
+    report.lits = (float)pulses / PULSEPERLITRE;
+    report.rate = 0;
+    xQueueSendToBack(qReport_flow, &report, (TickType_t)0);
     ESP_LOGI(TAG, "Starting flow_task");
     while (1)
     {
@@ -315,6 +336,10 @@ void task_Flow(void *pvParameter)
         else
         {
             flowing = true;
+            if (pulses == 0)
+            {
+                previousReportingPulses = 0;
+            }
             if (interval > 1L)
             {
                 // water being used - 1 second reporting
@@ -322,6 +347,7 @@ void task_Flow(void *pvParameter)
                 report.tme.tv_usec = now.tv_usec;
                 report.lits = (float)pulses / PULSEPERLITRE;
                 report.rate = ((float)(pulses - previousReportingPulses) / PULSEPERLITRE) * 60 / interval;
+
                 xQueueSendToBack(qReport_flow, &report, (TickType_t)0);
                 previousReportingTime = now.tv_sec;
                 previousReportingPulses = pulses;
@@ -338,7 +364,7 @@ void persist_pulse(long pulses)
     {
         ESP_LOGE(TAG, "persist_pulse: Config partition not mounted");
     }
-    if (rename("/fs/pulses.txt", "/fs/pulses_old.txt") != 0)
+    if (rename("/fs/pulses.txt", "/fs/pulses_old.txt") != 0) // tạo file back up dữ liệu
     {
         ESP_LOGE(TAG, "Rename failed");
     }
@@ -410,6 +436,9 @@ long read_pulse()
 
 void task_persist(void *pvParameters)
 {
+    input_io_create(26, HI_TO_LO);
+    input_set_callback(sensor_callback);
+
     long pulses, nextPersisPulses, nextPersistTime, lastPersistPulses;
     struct timeval now;
     ESP_LOGI(TAG, "Starting persist task");
@@ -422,7 +451,22 @@ void task_persist(void *pvParameters)
     while (1)
     {
         ESP_LOGD(TAG, "Waiting on persit Pulses queue");
+
         xQueueReceive(qPersistPulses, &pulses, portMAX_DELAY);
+        if (flag_button)
+        {
+            printf("button pressed");
+            persist_pulse(0);
+            char str_value_rate[17] = "";
+            char str_value_lits[17] = "";
+            float x = 0;
+            sprintf(str_value_lits, "node1_lits: %0.2f", x);
+            sprintf(str_value_rate, "node1_rate: %0.2f", x);
+            // oled_display_text("devide: node1", 0, strlen("devide: node1"));
+            oled_display_text(str_value_rate, 1, strlen(str_value_rate));
+            oled_display_text(str_value_lits, 2, strlen(str_value_lits));
+            flag_button = false;
+        }
         gettimeofday(&now, 0);
         // don't persist too often
         // (big change in pulse count or a period of time since last persist)
@@ -444,8 +488,6 @@ void task_persist(void *pvParameters)
 }
 void sensor_init(void)
 {
-    ESP_LOGI(TAG, "Initializing SPIFFS");
-
     //*********************spiffs init********************************//
     esp_vfs_spiffs_conf_t fs_conf = {
         .base_path = "/fs",
