@@ -1,0 +1,35 @@
+Added Component: Designator=U?(MODULE_ESP32-WROOM-32)
+Add component (AddParameter): Name = "Digi-Key_Part_Number"; Value = "1904-1010-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Digi-Key_Purchase_URL"; Value = "https://www.digikey.com/product-detail/en/espressif-systems/ESP32-WROOM-32/1904-1010-1-ND/8544305?utm_source=snapeda&utm_medium=aggregator&utm_campaign=symbol"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Espressif Systems"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "ESP32-WROOM-32"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "Module Espressif Systems"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/ESP32-WROOM-32/Espressif%20Systems/view-part/2753322/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Add Pin To Net: Unknown Pin: Pin U-15
+Added Pin To Net: NetName=NetU?_1 Pin=U?-1
+Added Pin To Net: NetName=NetU?_1 Pin=U?-15
+Added Pin To Net: NetName=NetU?_1 Pin=U?-38
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_1
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_2
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_3
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_4
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_5
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_6
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_7
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_8
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_9
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_10
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_11
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_12
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_13
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_14
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_15
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_16
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_17
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_18
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_19
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_20
+Added Pin To Net: NetName=NetU?_1 Pin=U?-39_21
+Added Net: Name=NetU?_1
+Added Member To Class: ClassName=final_sch Member=Component U? ESP32-WROOM-32

@@ -1,0 +1,17 @@
+Change Footprint: Footprint Not Found L fiter
+Add Component: Footprint Not Found CAPRR1000W60L1300T600H1200
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Add Pin To Net: Unknown Pin: Pin C8-1
+Add Pin To Net: Unknown Pin: Pin C8-2
+Added Pin To Net: NetName=GND Pin=C20-2
+Add Pin To Net: Unknown Pin: Pin L1-3
+Add Pin To Net: Unknown Pin: Pin L1-4
+Add Pin To Net: Unknown Pin: Pin PS-1
+Add Pin To Net: Unknown Pin: Pin PS-2
+Add Pin To Net: Unknown Pin: Pin PS-3
+Add Pin To Net: Unknown Pin: Pin PS-4
+Add Class Member: Failed to add class member : Component C8 capacitor fillter
+Added Member To Class: ClassName=final_sch Member=Component C18 106
+Added Member To Class: ClassName=final_sch Member=Component JP? JP 1x7 2.54
+Added Member To Class: ClassName=final_sch Member=Component L8 LED 0805
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05

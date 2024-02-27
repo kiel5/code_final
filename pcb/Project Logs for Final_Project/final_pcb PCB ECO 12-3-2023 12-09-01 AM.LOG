@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=GND Pin=U-C
+Add Pin To Net: Unknown Pin: Pin U-15
+Added Member To Class: ClassName=final_sch Member=Component U ESP32-WROOM-32
+Added Room: Name=final_sch

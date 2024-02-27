@@ -1,0 +1,71 @@
+Change Footprint: Footprint Not Found L fiter
+Add Component: Footprint Not Found CAPRR1000W60L1300T600H1200
+Added Component: Designator=LCD?(LCD OLED 128x64 SHT1106)
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 1% 10k"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005473"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 1% 10k"; VariantName = "[No Variations]"
+Added Component: Designator=T?(A3401)
+Added Pin To Net: NetName=AC_IN2 Pin=C?-1
+Add Pin To Net: Unknown Pin: Pin L?-3
+Add Pin To Net: Unknown Pin: Pin L?-4
+Add Pin To Net: Unknown Pin: Pin PS-1
+Add Pin To Net: Unknown Pin: Pin PS-2
+Add Pin To Net: Unknown Pin: Pin PS-3
+Add Pin To Net: Unknown Pin: Pin PS-4
+Added Pin To Net: NetName=5V_REG Pin=R?-1
+Added Pin To Net: NetName=GND Pin=R?-1
+Added Pin To Net: NetName=VBAT Pin=T?-2
+Added Pin To Net: NetName=VDD5V Pin=T?-3
+Add Net: Net with name "NetC?_2" already exists
+Add Net: Net with name "NetL?_2" already exists
+Add Net: Net with name "NetL?_2" already exists
+Add Net: Net with name "NetLED?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetU?_1" already exists
+Added Member To Class: ClassName=final_sch Member=Component C? 220uF
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component C? capacitor fillter
+Added Member To Class: ClassName=final_sch Member=Component C? 104
+Added Member To Class: ClassName=final_sch Member=Component C? 100nF
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component D? SS14
+Added Member To Class: ClassName=final_sch Member=Component J? AC-IN
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Added Member To Class: ClassName=final_sch Member=Component L? LED 0805
+Added Member To Class: ClassName=final_sch Member=Component LCD? OLED
+Added Member To Class: ClassName=final_sch Member=Component LED? LED
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05
+Added Member To Class: ClassName=final_sch Member=Component R? 10k
+Added Member To Class: ClassName=final_sch Member=Component R? 0R
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 0.4R
+Added Member To Class: ClassName=final_sch Member=Component R? 0R
+Added Member To Class: ClassName=final_sch Member=Component R? 100R
+Added Member To Class: ClassName=final_sch Member=Component R? 10k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1.2K
+Added Member To Class: ClassName=final_sch Member=Component T? A03401
+Added Member To Class: ClassName=final_sch Member=Component U? TP4056
+Added Member To Class: ClassName=final_sch Member=Component U? DW01A
+Added Member To Class: ClassName=final_sch Member=Component U? FS8205A

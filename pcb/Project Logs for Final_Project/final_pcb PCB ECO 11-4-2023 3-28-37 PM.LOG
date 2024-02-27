@@ -1,0 +1,93 @@
+Removed Pin From Net: NetName=3V3 Pin=C12-1
+Removed Pin From Net: NetName=RXD_ESP Pin=U1-2
+Removed Pin From Net: NetName=TXD_ESP Pin=U1-3
+Removed Pin From Net: NetName=3V3 Pin=U1-4
+Removed Pin From Net: NetName=3V3 Pin=U1-16
+Added Component: Designator=C?(tu 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH004551"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "T? 0805 104-100nF 10% 50V"; VariantName = "[No Variations]"
+Added Component: Designator=IC?(SOT223-4N)
+Add component (AddParameter): Name = "Value"; Value = "LM317"; VariantName = "[No Variations]"
+Added Component: Designator=IC?(SOT23-5)
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Added Component: Designator=Q?(SOT23)
+Add component (AddParameter): Name = "Value"; Value = "C9014"; VariantName = "[No Variations]"
+Added Component: Designator=Q?(SOT23)
+Add component (AddParameter): Name = "Value"; Value = "C9014"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005230"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 5% 0R"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005239"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 5% 10k"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005230"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 5% 0R"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005239"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 5% 10k"; VariantName = "[No Variations]"
+Added Component: Designator=U?(LM1117-SOP)
+Add component (AddParameter): Name = "Creator"; Value = "Nguyen Ba Bien"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Website"; Value = "http://group3i.net"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C?-2
+Added Pin To Net: NetName=EN Pin=Q?-3
+Added Pin To Net: NetName=IO0 Pin=Q?-3
+Added Pin To Net: NetName=RXD_ESP Pin=R?-2
+Added Pin To Net: NetName=TXD_ESP Pin=R?-2
+Added Pin To Net: NetName=IO0 Pin=U-25
+Added Pin To Net: NetName=DTR Pin=Q?-2
+Added Pin To Net: NetName=DTR Pin=R?-2
+Added Pin To Net: NetName=DTR Pin=U1-13
+Added Net: Name=DTR
+Added Pin To Net: NetName=NetC?_1 Pin=C?-1
+Added Pin To Net: NetName=NetC?_1 Pin=U1-4
+Added Net: Name=NetC?_1
+Added Pin To Net: NetName=NetQ?_1 Pin=Q?-1
+Added Pin To Net: NetName=NetQ?_1 Pin=R?-1
+Added Net: Name=NetQ?_1
+Add Net: Net with name "NetQ?_1" already exists
+Added Pin To Net: NetName=RTS Pin=Q?-2
+Added Pin To Net: NetName=RTS Pin=R?-2
+Added Pin To Net: NetName=RTS Pin=U1-14
+Added Net: Name=RTS
+Added Pin To Net: NetName=RXD_CH Pin=R?-1
+Added Pin To Net: NetName=RXD_CH Pin=U1-3
+Added Net: Name=RXD_CH
+Added Pin To Net: NetName=TXD_CH Pin=R?-1
+Added Pin To Net: NetName=TXD_CH Pin=U1-2
+Added Net: Name=TXD_CH
+Added Pin To Net: NetName=VBUS_5V Pin=C12-1
+Added Pin To Net: NetName=VBUS_5V Pin=U1-16
+Added Pin To Net: NetName=VBUS_5V Pin=USB1-1
+Added Net: Name=VBUS_5V
+Added Member To Class: ClassName=final_sch Member=Component C? 104
+Added Member To Class: ClassName=final_sch Member=Component IC? LM1117
+Added Member To Class: ClassName=final_sch Member=Component IC? RT9013
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05
+Added Member To Class: ClassName=final_sch Member=Component Q? HF
+Added Member To Class: ClassName=final_sch Member=Component Q? HF
+Added Member To Class: ClassName=final_sch Member=Component R? 0R
+Added Member To Class: ClassName=final_sch Member=Component R? 10k
+Added Member To Class: ClassName=final_sch Member=Component R? 0R
+Added Member To Class: ClassName=final_sch Member=Component R? 10k
+Added Member To Class: ClassName=final_sch Member=Component U? LM1117-ADJ

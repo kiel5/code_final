@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=IO0 Pin=C20-1
+Removed Pin From Net: NetName=GND Pin=C20-2
+Removed Member From Class: ClassName=final_sch Member=C20
+Change Footprint: Footprint Not Found L fiter
+Add Pin To Net: Unknown Pin: Pin L1-3
+Add Pin To Net: Unknown Pin: Pin L1-4

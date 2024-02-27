@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=5V_REG Pin=B1-1
+Removed Pin From Net: NetName=5V_REG Pin=C5-1
+Removed Pin From Net: NetName=5V_REG Pin=R6-2
+Added Component: Designator=SW1(SW_2ARS_TH)
+Add component (AddParameter): Name = "Alternate Part Number-1"; Value = "NA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case/Package"; Value = "TH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "ITT C&K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "SRB23A2BBBNN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number-1"; Value = "SRB23A2BBBNN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier-1"; Value = "SP ROAD"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=5V_REG Pin=SW1-1
+Added Pin To Net: NetName=NetB1_1 Pin=B1-1
+Added Pin To Net: NetName=NetB1_1 Pin=C5-1
+Added Pin To Net: NetName=NetB1_1 Pin=R6-2
+Added Pin To Net: NetName=NetB1_1 Pin=SW1-2
+Added Net: Name=NetB1_1
+Added Member To Class: ClassName=final_sch Member=Component SW1

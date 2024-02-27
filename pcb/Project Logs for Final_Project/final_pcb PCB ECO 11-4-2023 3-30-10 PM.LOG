@@ -1,0 +1,22 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C13
+Change Component Designator: OldDesignator=IC? NewDesignator=IC1
+Change Component Designator: OldDesignator=IC? NewDesignator=IC2
+Change Component Designator: OldDesignator=Q? NewDesignator=Q1
+Change Component Designator: OldDesignator=Q? NewDesignator=Q2
+Change Component Designator: OldDesignator=R? NewDesignator=R2
+Change Component Designator: OldDesignator=R? NewDesignator=R3
+Change Component Designator: OldDesignator=R? NewDesignator=R4
+Change Component Designator: OldDesignator=R? NewDesignator=R5
+Change Component Designator: OldDesignator=U? NewDesignator=U2
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Change Net Name : Old Net Name=NetC?_1 New Net Name=NetC13_1
+Change Net Name : Old Net Name=NetQ?_1 New Net Name=NetQ1_1
+Added Pin To Net: NetName=NetQ2_1 Pin=Q2-1
+Added Pin To Net: NetName=NetQ2_1 Pin=R5-1
+Added Net: Name=NetQ2_1
+Added Member To Class: ClassName=final_sch Member=Component IC2 LM1117
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05
+Added Member To Class: ClassName=final_sch Member=Component Q2 HF
+Added Member To Class: ClassName=final_sch Member=Component R2 0R
+Added Member To Class: ClassName=final_sch Member=Component R3 0R
+Added Member To Class: ClassName=final_sch Member=Component R4 10k

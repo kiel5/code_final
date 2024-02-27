@@ -1,0 +1,134 @@
+Removed Pin From Net: NetName=5V_REG Pin=C?-1
+Removed Pin From Net: NetName=NetD?_1 Pin=D?-1
+Removed Pin From Net: NetName=NetD?_2 Pin=D?-2
+Removed Pin From Net: NetName=5V_REG Pin=U2-3
+Change Component Footprint: Designator=L? Old Footprint=L2x220 New Footprint=LED-0805-Red
+Change Component Footprint: Designator=L? Old Footprint=L-DIP-220 New Footprint=LED-0805-Yellow
+Change Component Comment : Designator=L? Old Comment=L New Comment=LED 0805
+Change Component Comment : Designator=L? Old Comment=L New Comment=LED 0805
+Change component parameters: Designator = "L?" ("L?"); Footprint = "L-DIP-220"; UniqueID = "\IDMHGJAH" ("\IDMHGJAH")
+Change component parameters (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ghi_Chu"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ma_Hang"; Value = "MH002946"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ten_Linh_Kien"; Value = "LED 0805 Màu Tr?ng ( White)"; VariantName = "[No Variations]"
+Change component parameters: Designator = "L?" ("L?"); Footprint = "L2x220"; UniqueID = "\KWFFNHFS" ("\KWFFNHFS")
+Change component parameters (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ghi_Chu"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ma_Hang"; Value = "MH000897"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Ten_Linh_Kien"; Value = "LED 0805 Màu Ð? (Red)"; VariantName = "[No Variations]"
+Added Component: Designator=C?(tu nhom 10 (g))
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH002228"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "T? Nhôm 220uF 50V 10x10.2MM"; VariantName = "[No Variations]"
+Add Component: Footprint Not Found CAPRR1000W60L1300T600H1200
+Added Component: Designator=D?(DIODE SMA)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ghi_Chu"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH002211"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Diode SS14 DO214 Schottky 1A 40V ( 1N5819 DO214)"; VariantName = "[No Variations]"
+Add Component: Footprint Not Found LED_3MM_DUAL RA
+Added Component: Designator=J?(KF2-5.08)
+Add component (AddParameter): Name = "ComponentLink1 Description"; Value = "Manufacturer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.we-online.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2 Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://katalog.we-online.de/em/datasheet/6911031100xx.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Created by"; Value = "Karrer Zheng"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Created Date"; Value = "29 October 2013"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Würth Elektronik eiSos GmbH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoPins"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "partNo"; Value = "691103110002"; VariantName = "[No Variations]"
+Added Component: Designator=J?(KF2-3.5)
+Add component (AddParameter): Name = "ComponentLink1 Description"; Value = "Manufacturer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.we-online.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2 Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://katalog.we-online.de/em/datasheet/6911031100xx.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Created by"; Value = "Karrer Zheng"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Created Date"; Value = "29 October 2013"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Würth Elektronik eiSos GmbH"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "NoPins"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "partNo"; Value = "691103110002"; VariantName = "[No Variations]"
+Add Component: Footprint Not Found L fiter
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Added Component: Designator=R?(Tro SMD 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005341"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 5% 470R"; VariantName = "[No Variations]"
+Added Component: Designator=R?(tro smd 0805)
+Add component (AddParameter): Name = "Chung_Loai"; Value = "Dán"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Don_Vi"; Value = "Con"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Kieu_Chan"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ma_Hang"; Value = "MH005468"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "So_Chan"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ten_Linh_Kien"; Value = "Tr? 0805 1% 1k"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=5V_REG Pin=C?-1
+Added Pin To Net: NetName=GND Pin=C?-2
+Added Pin To Net: NetName=5V_REG Pin=D?-1
+Added Pin To Net: NetName=NetD?_1 Pin=D?-1
+Added Pin To Net: NetName=NetD?_2 Pin=D?-2
+Add Pin To Net: Unknown Pin: Pin D?-3
+Added Pin To Net: NetName=3V3 Pin=L?-1
+Added Pin To Net: NetName=5V_REG Pin=L?-1
+Add Pin To Net: Unknown Pin: Pin PS-3
+Add Pin To Net: Unknown Pin: Pin PS-4
+Added Pin To Net: NetName=5V_REG Pin=R?-2
+Added Pin To Net: NetName=GND Pin=R?-2
+Added Pin To Net: NetName=GND Pin=R?-2
+Added Pin To Net: NetName=AC_IN1 Pin=F?-1
+Added Pin To Net: NetName=AC_IN1 Pin=J?-2
+Added Net: Name=AC_IN1
+Added Pin To Net: NetName=AC_IN2 Pin=C?-1
+Added Pin To Net: NetName=AC_IN2 Pin=J?-1
+Added Pin To Net: NetName=AC_IN2 Pin=RV?-2
+Added Net: Name=AC_IN2
+Add Net: Net with name "NetC?_1" already exists
+Add Net: Net with name "NetC?_2" already exists
+Added Pin To Net: NetName=NetL?_2 Pin=L?-2
+Added Pin To Net: NetName=NetL?_2 Pin=R?-1
+Added Net: Name=NetL?_2
+Add Net: Net with name "NetL?_2" already exists
+Add Net: Net with name "NetL?_2" already exists
+Added Net: Name=NetL?_3
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetU?_1" already exists
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component C? capacitor fillter
+Added Member To Class: ClassName=final_sch Member=Component C? 100nF
+Added Member To Class: ClassName=final_sch Member=Component D? S4
+Added Member To Class: ClassName=final_sch Member=Component D? SS14
+Added Member To Class: ClassName=final_sch Member=Component D? G/R
+Added Member To Class: ClassName=final_sch Member=Component J? AC-IN
+Added Member To Class: ClassName=final_sch Member=Component J? KF2
+Added Member To Class: ClassName=final_sch Member=Component L? LED 0805
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Added Member To Class: ClassName=final_sch Member=Component L? LED 0805
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05
+Added Member To Class: ClassName=final_sch Member=Component R? 0R
+Added Member To Class: ClassName=final_sch Member=Component R? 0.4R
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1.2K
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 100R
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component U? TL431BSA
+Added Member To Class: ClassName=final_sch Member=Component U? FS8205A
+Added Member To Class: ClassName=final_sch Member=Component U? DW01A
+Added Member To Class: ClassName=final_sch Member=Component U? TP4056
+Added Member To Class: ClassName=final_sch Member=Component U? TL431ACDBZT

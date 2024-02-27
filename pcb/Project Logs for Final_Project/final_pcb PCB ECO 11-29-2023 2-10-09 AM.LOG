@@ -1,0 +1,22 @@
+Change Footprint: Footprint Not Found L fiter
+Added Component: Designator=C8(CAPRR1000W60L1300T600H1200)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/B32921C3104M003/TDK/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "TDK"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B32921C3104M003"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Purchase-URL"; Value = "https://pricing.snapeda.com/search/part/B32921C3104M003/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/B32921C3104M003/TDK/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Added Pin To Net: NetName=AC_IN2 Pin=C8-1
+Added Pin To Net: NetName=NetC8_2 Pin=C8-2
+Add Pin To Net: Unknown Pin: Pin L1-3
+Add Pin To Net: Unknown Pin: Pin L1-4
+Add Pin To Net: Unknown Pin: Pin PS-1
+Add Pin To Net: Unknown Pin: Pin PS-2
+Add Pin To Net: Unknown Pin: Pin PS-3
+Add Pin To Net: Unknown Pin: Pin PS-4
+Added Member To Class: ClassName=final_sch Member=Component C8 capacitor fillter
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05

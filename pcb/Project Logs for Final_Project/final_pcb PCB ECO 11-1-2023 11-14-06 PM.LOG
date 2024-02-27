@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=Net*_16 Pin=*-16
+Added Pin To Net: NetName=Net*_16 Pin=*-25
+Added Net: Name=Net*_16
+Added Pin To Net: NetName=NetU_16 Pin=U-16
+Added Pin To Net: NetName=NetU_16 Pin=U-25
+Added Net: Name=NetU_16

@@ -1,0 +1,12 @@
+Added Component: Designator=BT(BAT_BH-18650-PC)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "MPD _Memory"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "BH-18650-PC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "DFN-8 Memory Protection Devices"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/BH-18650-PC/MPD%20%28Memory%20Protection%20Devices%29/view-part/779074/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=BT-N
+Added Pin To Net: NetName=VBAT Pin=BT-P
+Add Pin To Net: Unknown Pin: Pin U-15
+Added Member To Class: ClassName=final_sch Member=Component BT BH-18650-PC

@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=NetC8_2 Pin=L1-1
+Removed Pin From Net: NetName=NetL1_2 Pin=PS1-1
+Removed Pin From Net: NetName=NetL1_3 Pin=PS1-2
+Change Component Footprint: Designator=L1 Old Footprint=LED-0805-Green New Footprint=L-DIP-220
+Added Pin To Net: NetName=AC_IN2 Pin=L1-1
+Added Pin To Net: NetName=NetL1_3 Pin=L1-3
+Added Pin To Net: NetName=NetC8_2 Pin=L1-4
+Added Pin To Net: NetName=NetL1_3 Pin=PS1-1
+Added Pin To Net: NetName=NetL1_2 Pin=PS1-2

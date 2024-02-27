@@ -1,0 +1,18 @@
+Change Footprint: Footprint Not Found L fiter
+Change Component Designator: OldDesignator=JP? NewDesignator=JP3
+Added Component: Designator=PS1(CONV_HLK-PM01)
+Add component (AddParameter): Name = "Availability"; Value = "Not in stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/hlk-pm01/Hi-link/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Hi-link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "hlk-pm01"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/hlk-pm01/Hi-link/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Add Pin To Net: Unknown Pin: Pin L1-3
+Add Pin To Net: Unknown Pin: Pin L1-4
+Added Pin To Net: NetName=NetL1_2 Pin=PS1-1
+Added Pin To Net: NetName=NetL1_3 Pin=PS1-2
+Added Pin To Net: NetName=GND Pin=PS1-3
+Added Pin To Net: NetName=5V_REG Pin=PS1-4
+Added Member To Class: ClassName=final_sch Member=Component PS1 HLK-PM01

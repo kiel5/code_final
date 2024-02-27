@@ -1,0 +1,93 @@
+Removed Pin From Net: NetName=NetD?_1 Pin=D?-1
+Removed Pin From Net: NetName=NetD?_2 Pin=D?-2
+Removed Pin From Net: NetName=+5V Pin=J?-1
+Removed Pin From Net: NetName=GND Pin=J?-5
+Removed Pin From Net: NetName=GND Pin=J?-5
+Removed Pin From Net: NetName=GND Pin=J?-5
+Removed Member From Class: ClassName=final_sch Member=J?
+Add Component: Footprint Not Found CAPRR1000W60L1300T600H1200
+Add Component: Footprint Not Found LED_3MM_DUAL RA
+Added Component: Designator=F?(F2-5.1-11.4X3.0X18.3MM)
+Add component (AddParameter): Name = "Availability"; Value = "Bad"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/30R250/Littelfuse/view-part/4772985/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Littelfuse"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "30R250"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "Radial Littelfuse"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/30R250/Littelfuse/view-part/4772985/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Add Component: Footprint Not Found L2x220
+Added Component: Designator=L?(L2x220)
+Add component (AddParameter): Name = "Designed by"; Value = "VanDungEvn"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Loc 220"; VariantName = "[No Variations]"
+Added Component: Designator=L?(L-DIP-220)
+Add component (AddParameter): Name = "Designed by"; Value = "VanDungEvn"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Loc 220"; VariantName = "[No Variations]"
+Add Component: Footprint Not Found L fiter
+Add Component: Footprint Not Found L2x220
+Add Component: Footprint Not Found Nguon HI-LINK 5M05
+Added Component: Designator=RV?(MOV14D471K)
+Add component (AddParameter): Name = "Availability"; Value = "In Stock"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Check_prices"; Value = "https://www.snapeda.com/parts/MOV-14D471K/Bourns/view-part/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Bourns"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "MOV-14D471K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "Disc-14 Bourns"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Purchase-URL"; Value = "https://pricing.snapeda.com/search/part/MOV-14D471K/?ref=eda"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/MOV-14D471K/Bourns/view-part/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=U?(SOT 23-3)
+Add component (AddParameter): Name = "Alternate Part Number-1"; Value = "NA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case/Package"; Value = "SOT-23"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Diodes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "TL431BSA-7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number-1"; Value = "621-TL431BSA-7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier-1"; Value = "Mouser"; VariantName = "[No Variations]"
+Added Component: Designator=U?(SOT 23-3)
+Add component (AddParameter): Name = "Alternate Part Number-1"; Value = "NA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case/Package"; Value = "SOT-23"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "TL431ACDBZT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number-1"; Value = "595-TL431ACDBZT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier-1"; Value = "Mouser"; VariantName = "[No Variations]"
+Added Component: Designator=U?(SOT 23-3)
+Add component (AddParameter): Name = "Alternate Part Number-1"; Value = "NA"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case/Package"; Value = "SOT-23-3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "TL431LIBQDBZR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number-1"; Value = "595-TL431LIBQDBZR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier-1"; Value = "Mouser"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetD?_1 Pin=D?-1
+Added Pin To Net: NetName=NetD?_2 Pin=D?-2
+Add Pin To Net: Unknown Pin: Pin D?-3
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetR?_2" already exists
+Add Net: Net with name "NetU?_1" already exists
+Added Member To Class: ClassName=final_sch Member=Component C? 100nF
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component C? 10uF
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component C? 106
+Added Member To Class: ClassName=final_sch Member=Component D? SS14
+Added Member To Class: ClassName=final_sch Member=Component D? S4
+Added Member To Class: ClassName=final_sch Member=Component F? fuse
+Added Member To Class: ClassName=final_sch Member=Component L? LED 0805
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Added Member To Class: ClassName=final_sch Member=Component L? L
+Add Class Member: Failed to add class member : Component PS Nguon Hi-Link HLK-5M05
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 1.2K
+Added Member To Class: ClassName=final_sch Member=Component R? 100R
+Added Member To Class: ClassName=final_sch Member=Component R? 1k
+Added Member To Class: ClassName=final_sch Member=Component R? 0.4R
+Added Member To Class: ClassName=final_sch Member=Component RV? varistor
+Added Member To Class: ClassName=final_sch Member=Component U? FS8205A
+Added Member To Class: ClassName=final_sch Member=Component U? TP4056
+Added Member To Class: ClassName=final_sch Member=Component U? TL431BSA
+Added Member To Class: ClassName=final_sch Member=Component U? TL431ACDBZT
+Added Member To Class: ClassName=final_sch Member=Component U? TP4056
+Added Member To Class: ClassName=final_sch Member=Component U? DW01A

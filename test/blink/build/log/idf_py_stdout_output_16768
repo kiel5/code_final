@@ -1,0 +1,25 @@
+[1/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/blink_example_main.c.obj
+C:/Users/kien/Downloads/esp32/blink/main/blink_example_main.c: In function 'app_main':
+C:/Users/kien/Downloads/esp32/blink/main/blink_example_main.c:37:26: warning: passing argument 1 of 'cJSON_Parse' from incompatible pointer type [-Wincompatible-pointer-types]
+   37 | cJSON* msg = cJSON_Parse(root);
+      |                          ^~~~
+      |                          |
+      |                          cJSON *
+In file included from C:/Users/kien/Downloads/esp32/blink/main/blink_example_main.c:15:
+C:/Espressif/frameworks/esp-idf-v5.0/components/json/cJSON/cJSON.h:148:47: note: expected 'const char *' but argument is of type 'cJSON *'
+  148 | CJSON_PUBLIC(cJSON *) cJSON_Parse(const char *value);
+      |                                   ~~~~~~~~~~~~^~~~~
+[2/9] Linking C static library esp-idf\main\libmain.a
+[3/9] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\blink\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/kien/Downloads/esp32/blink/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable blink.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.4
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/kien/Downloads/esp32/blink/build/blink.bin
+[7/7] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\blink\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/kien/Downloads/esp32/blink/build/partition_table/partition-table.bin C:/Users/kien/Downloads/esp32/blink/build/blink.bin"
+blink.bin binary size 0x32a20 bytes. Smallest app partition is 0x100000 bytes. 0xcd5e0 bytes (80%) free.
