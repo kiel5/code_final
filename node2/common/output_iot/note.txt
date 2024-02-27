@@ -1,0 +1,1 @@
+sửa file make ở chính : thêm set(EXTRA_COMPONENT_DIRS ${CMAKE_CURRENT_LIST_DIR}/common)

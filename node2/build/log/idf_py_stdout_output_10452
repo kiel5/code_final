@@ -1,0 +1,29 @@
+[1/9] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\node2\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/kien/Downloads/esp32/node2/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/7] Building C object esp-idf/app_mqtt/CMakeFiles/__idf_app_mqtt.dir/app_mqtt.c.obj
+C:/Users/kien/Downloads/esp32/node2/common/app_mqtt/app_mqtt.c: In function 'receivemsg_task':
+C:/Users/kien/Downloads/esp32/node2/common/app_mqtt/app_mqtt.c:131:21: warning: unused variable 'msg_id' [-Wunused-variable]
+  131 |                 int msg_id = mqtt_publish(buffer, strlen(buffer));
+      |                     ^~~~~~
+C:/Users/kien/Downloads/esp32/node2/common/app_mqtt/app_mqtt.c:142:17: warning: unused variable 'msg_id' [-Wunused-variable]
+  142 |             int msg_id = mqtt_publish(buffer, strlen(buffer));
+      |                 ^~~~~~
+C:/Users/kien/Downloads/esp32/node2/common/app_mqtt/app_mqtt.c:159:17: warning: unused variable 'msg_id' [-Wunused-variable]
+  159 |             int msg_id = mqtt_publish(buffer, strlen(buffer));
+      |                 ^~~~~~
+At top level:
+C:/Users/kien/Downloads/esp32/node2/common/app_mqtt/app_mqtt.c:34:20: warning: 'tag_json' defined but not used [-Wunused-variable]
+   34 | static const char *tag_json = "json";
+      |                    ^~~~~~~~
+[3/7] Linking C static library esp-idf\app_mqtt\libapp_mqtt.a
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable node2.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.4
+Creating esp32 image...
+Merged 25 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/kien/Downloads/esp32/node2/build/node2.bin
+[7/7] cmd.exe /C "cd /D C:\Users\kien\Downloads\esp32\node2\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.8_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/kien/Downloads/esp32/node2/build/partition_table/partition-table.bin C:/Users/kien/Downloads/esp32/node2/build/node2.bin"
+node2.bin binary size 0x101b10 bytes. Smallest app partition is 0x160000 bytes. 0x5e4f0 bytes (27%) free.
