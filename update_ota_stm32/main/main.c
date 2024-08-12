@@ -42,18 +42,14 @@ void app_main(void)
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
 
-    //app_config();
+    app_config();
     ESP_LOGI(TAG,"config_uart");
     app_uart_init();
     ESP_LOGI(TAG,"config_uart_done");
     bootloader_init();
 
-    //int kien = uart_write_bytes(0,"d",4);
-    //xTaskCreate(&app_ota, "app_ota_task", 8192, NULL, 5, NULL);
-    // stm32 send to esp32 by uart0, esp32 send uart0 to print terminal
-    //chua goi min_poll
-    // xảy ra ngắt uart thì gọi min_poll, truyền vào data luôn, đỡ tốn công
 
-    // lỗi kí tự là hex
-    //xử lý gọi minpoll mà không vào handler
+    //xTaskCreate(&app_ota, "app_ota_task", 8192, NULL, 5, NULL);
+
+ 
 }
