@@ -1,0 +1,1 @@
+mỗi khi nhận 1 byte sẽ gọi min_poll để truyền data vào hàm handler

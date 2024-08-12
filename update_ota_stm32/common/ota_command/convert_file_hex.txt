@@ -1,0 +1,109 @@
+#include "stdio.h"
+#include "string.h"
+#include "stdint.h"
+
+
+enum
+{
+    status_ok,
+    status_error
+};
+char file_hex[1024*50]=
+R"(
+:020000040800F2
+:105000000050002061530008055300080B530008AE
+:1050100011530008175300081D530008000000003A
+:105020000000000000000000000000002353000802
+:105030002F530008000000003B53000847530008AE
+:10504000A9530008A9530008A9530008A953000850
+:10505000A9530008A9530008A9530008A953000840
+:10506000A9530008A9530008A9530008A953000830
+:10507000A9530008A9530008A9530008A953000820
+:10508000A9530008A9530008A9530008A953000810
+:10509000A9530008A9530008A9530008A953000800
+:1050A000A9530008A9530008A9530008A9530008F0
+)";
+
+
+uint8_t char_to_byte(char c)
+{
+    if(c >= '0' && c<= '9') return c - '0';
+    if(c >= 'a' && c<= 'f') return c - 'a' + 10;
+    if(c >= 'A' && c<= 'F') return c - 'A' + 10;
+    return -1;
+}
+
+void convert_string_to_array_hex(char* input, uint8_t *output)
+{
+    uint8_t index =0;
+    
+    if(*input == ':')
+    {
+        input ++;
+        while(*input != '\0')
+        {
+        uint8_t hex_value = char_to_byte(*input++)<<4;//4 bit cao
+        hex_value |= char_to_byte(*input++);          //4 bit thap
+        output[index++] = hex_value;
+
+        //printf("%02x ",hex_value);
+        }
+    }
+    //printf("\n");
+}
+uint8_t check_some(uint8_t *buff, uint8_t len)
+{
+    uint8_t some = 0;
+    for(uint8_t i=0;i < len-1;i++){
+        some += buff[i];
+    } 
+    some = ~some;
+    some += 1;
+    if(some == buff[len-1])
+    {
+        return status_ok;
+    }
+    return status_error;
+}
+
+void swap(uint8_t *a,uint8_t *b)
+{
+    uint8_t temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void swap_4_byte(uint8_t *data, uint8_t len)
+{
+    for(int i=0; i<len; i+=4)
+    {
+      swap(&data[i+0],&data[i+3]);
+      swap(&data[i+1],&data[i+2]);
+    }
+}
+void print_data(uint8_t *data,uint8_t len)
+{
+    for(uint8_t i=0; i<len; i++)
+    {
+        printf("%02X ",data[i]);
+    }
+    printf("\n");
+}
+// int name(){
+//     char *token = strtok(file_hex,"\n");
+//     while(token != NULL){
+//           uint8_t hex_data[21];
+//           convert_string_to_array_hex(token,hex_data);
+//           if(check_some(hex_data,hex_data[0] + 5) != status_ok)
+//           {
+//             break; 
+//           }
+//           if(hex_data[3] == 0x00) // feild data of file hex
+//           {
+//             swap_4_byte(&hex_data[4],hex_data[0]);
+//             // send uart data
+//           }
+//           print_data(hex_data,hex_data[0]);
+//       token = strtok(NULL,"\n");
+//   }
+//     return 0;
+// }

@@ -1,0 +1,36 @@
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0/tools/cmake/component.cmake:484 (add_library):
+  Cannot find source file:
+
+    C:/Users/kien/Downloads/esp32/update_ota_stm32/common/download_file_fw/http_server_app.c
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+Call Stack (most recent call first):
+  common/download_file_fw/CMakeLists.txt:4 (idf_component_register)
+
+
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0/tools/cmake/component.cmake:484 (add_library):
+  Cannot find source file:
+
+    C:/Users/kien/Downloads/esp32/update_ota_stm32/common/ota_command/bootloader_command.c
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+Call Stack (most recent call first):
+  common/ota_command/CMakeLists.txt:4 (idf_component_register)
+
+
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0/tools/cmake/component.cmake:484 (add_library):
+  No SOURCES given to target: __idf_download_file_fw
+Call Stack (most recent call first):
+  common/download_file_fw/CMakeLists.txt:4 (idf_component_register)
+
+
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0/tools/cmake/component.cmake:484 (add_library):
+  No SOURCES given to target: __idf_ota_command
+Call Stack (most recent call first):
+  common/ota_command/CMakeLists.txt:4 (idf_component_register)
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
+ninja: error: rebuilding 'build.ninja': subcommand failed
